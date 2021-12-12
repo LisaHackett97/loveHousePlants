@@ -1,0 +1,221 @@
+:root {
+    --main-text-color: #3D4A3D;
+    --headers: #343434;
+    --color1:#138A36;
+    --color2:#D4C5C7;
+  }
+
+  html {
+      height: 100%;
+  }
+
+  body {
+    height: calc(100vh - 164px);
+    
+  }
+  
+/* header/nav bar stylings */
+
+/* Mobile icon */
+  .fas.fa-bars {
+    font-size: 2rem;
+    color: var(--headers); 
+ }
+
+ .bg-mobile-nav  {
+    background-color: var(--color2);
+
+}
+
+
+.header-container {
+    padding: 10px;
+     background-color: var(--color2);
+     position: fixed;
+     top: 0;
+     right: 0;
+     left: 0;
+     z-index: 1000;
+     color: var(--headers);
+}
+
+
+  h2.text-heading:hover,
+  .list-inline-item:hover,
+  .list-inline-item a:hover {
+      color: var(--color1);
+  }
+
+  .list-inline-item:hover {
+      text-decoration: underline;
+  }
+  
+  /* to push content under header */
+  .content-container{
+    padding-top: 100px;
+}
+
+  /* main heading styles */
+
+  h3.text-heading {
+      font-size: 3.5rem;
+  }
+
+.text-heading {
+      color: var(--headers);
+      font-family: 'Hind', sans-serif;
+      font-size:2rem;
+}
+
+.text-heading2 {
+    color: var(--headers);
+    font-family: 'Hind', sans-serif;
+    font-size:1rem;
+}
+/* content styles */
+.text-content {
+    color: var(--main-text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size:1rem;
+
+}
+
+/* from Bulma */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1rem;
+    width: 1.5rem;
+}
+
+/* Buttons */
+.btn,
+.footer-home-btn {
+    border: 2px solid var(--main-text-color);
+    color: var(--main-text-color);
+    background-color: var(--color2);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.btn:hover,
+span.text-content:hover {
+   
+    color: var(--color2);
+    background-color: var(--main-text-color); 
+}
+
+
+/* HOME/LANDING PAGE */
+
+/* content sections for landing/home page */
+.parallax-1, .parallax-2 {
+    background-color: var(--color2);
+
+}
+/* image sections for parallax effect */
+.para-1, .para-2 {
+    width: 100%;
+    height: 500px;
+    background:url(/media/landing-pg-plant-1.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position-y: -15%;
+    background-position-x: 45%;
+}
+
+/* Services Page */
+.card-img-top{
+    object-fit: contain;
+    object-position: center center;
+}
+
+/* Cart */
+.remove-item {
+    cursor: pointer;
+}
+
+/* Toasts and Messages */
+
+.message-container {
+    position:fixed;
+    top: 80px;
+    right: 80px;
+    z-index: 9999999;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-success {
+    color: var(--headers);
+    background-color: var(--color1);
+}
+
+.toast-error {
+    /* color: var(--color2); */
+    color: #df2323;
+}
+
+.info-bg {
+    color: var(--color2);
+    background-color: var(--headers);
+}
+
+.cart-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/*
+https://www.w3schools.com/howto/howto_js_scroll_to_top.asp */
+/* style back to top of page icon */
+#backToTopBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 15px;
+  z-index: 9999;
+  border: none;
+  background: none;
+  color: var(--color1);
+  cursor: pointer;
+}
+
+#backToTopBtn>i {
+  font-size: 30px;
+}
+
+#backToTopBtn>i:hover {
+  color: var(--headers);
+}
+
+
+/* Media Queries */
+
+@media (min-width: 1200px) {
+.container {
+    max-width: 80%;
+}
+ }
+
+ @media (max-width: 767.98px) {
+    .img-thumbnail {
+        height: 80%;
+        width: 100%;
+    }  
+}
+ 
+ /* // Small devices (landscape phones, 576px and up) */
+/* @media (min-width: 576px) { ... } */
+
+/* Medium devices (tablets, 768px and up) */
+/* @media (min-width: 768px) { ... } */
+
+
+
+
+
