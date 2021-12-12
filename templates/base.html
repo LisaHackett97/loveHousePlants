@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
+
+    {% block corecss %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    {% block corejs %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+  <!-- favicon links and metadata-->
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+    <title>Love HousePlants {% block extra_title%}{% endblock %}</title>
+</head>
+
+<body>
+    <header class="container-fluid header-container">
+   
+
+<div id="topnav" class="row pt-lg-2 d-none d-lg-flex">
+    <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-lg-left">
+        <a href="{% url 'home' %}" class="nav-link main-logo-link">
+            <h2 class="text-heading">Love my House Plants <i class="fas fa-seedling"></i></h2>
+        </a>
+    </div>
+    
+    <div class="col-12 col-lg-8 my-auto py-1 py-lg-0 navbar-collapse">
+        <ul class="list-inline  text-center text-lg-right my-0">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                
+                    <li class="list-inline-item text-content"><div class="text-center"><i class="fas fa-cogs"></i> </div> TBC Admin</li>
+                
+                {% endif %}
+                <li class="list-inline-item pl-1"><a href="{% url 'services' %}" class="text-content"><div class="text-center text-content"><i class="fas fa-store"></i> </div>Services</a></li>
+                <li class="list-inline-item pl-1"><a href="" class="text-content"><div class="text-center"><i class="far fa-user-circle"></i></div>My Profile</a></li>
+
+                <li class="list-inline-item pl-1">
+                    <a class="{% if service_count %}text-info font-weight-bold{% else %}text-content{% endif %} nav-link" href="{% url 'view_cart' %}">
+                        <div class="text-center"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="text-center">
+                            {% if service_count %}
+                            € {{ total|floatformat:2 }}
+                            {% else %}
+                               <small>0</small>
+                            {% endif %}
+                        </div>                 
+                    </a>
+                </li>
+                <li class="list-inline-item pl-1"><a href="{% url 'articles' %}" class="text-content"><div class="text-center"><i class="fas fa-info-circle"></i></div>Learn more</a></li>
+                <li class="list-inline-item pl-1"><a href="{% url 'account_logout' %}" class="text-content"><div class="text-center"><i class="fas fa-sign-out-alt"></i></div>Logout</a></li>
+            {% else %}
+                <li class="list-inline-item"><a href="" class="text-content"><div class="text-center"><i class="fas fa-home"></i></div>Home</a></li>
+                <li class="list-inline-item"><a href="{% url 'account_signup' %}" class="text-content"><div class="text-center"><i class="fas fa-user-plus"></i></div>Register</a></li>
+                <li class="list-inline-item"><a href="{% url 'account_login' %}" class="text-content"><div class="text-center"><i class="fas fa-sign-in-alt"></i></div>Login</a></li>
+            {% endif %}
+        </ul>       
+    </div>
+</div>
+   
+<!-- for collapsed menu on medium and down screens -->
+<div class="row d-block d-lg-none">
+    <nav class="navbar navbar-expand-lg bg-mobile-nav w-100 navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>       
+        {% include 'includes/main-nav.html' %}
+    </nav>
+</div>
+
+    </header>
+
+    {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+            {% with message.level as level %}
+                {% if level == 40 %}
+                    {% include 'includes/toasts/toast_error.html' %}
+                {% elif level == 30 %}
+                    {% include 'includes/toasts/toast_warning.html' %}
+                {% elif level == 25 %}
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% else %}
+                    {% include 'includes/toasts/toast_info.html' %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+    {% block page_header %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+<!-- back to top of page icon on all pages -->
+<button onclick="topFunction()" id="backToTopBtn" title="Go to top"><i class="fas fa-angle-double-up"></i></button>
+
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
+    <script type="text/javascript">
+        let mybutton = document.getElementById("backToTopBtn");
+jQuery.event.special.touchstart = {
+  setup: function( _, ns, handle ){
+    if ( ns.includes("noPreventDefault") ) {
+      this.addEventListener("touchstart", handle, { passive: false });
+    } else {
+      this.addEventListener("touchstart", handle, { passive: true });
+    }
+  }
+};
+    </script>
+    {% endblock %}
+
+</body>
+
+</html>
